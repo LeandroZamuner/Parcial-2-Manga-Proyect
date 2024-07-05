@@ -2,23 +2,17 @@ import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-const App = () => {
+const CarouselComponent = ({ carouselImages }) => {
   return (
-    <Carousel>
-      <div>
-        <img src="/images/Carousel1.jpg" alt="Imagen 1" />
-        <p className="legend">Texto 1</p>
-      </div>
-      <div>
-        <img src="/images/Carousel2.jpg" alt="Imagen 2" />
-        <p className="legend">Texto 2</p>
-      </div>
-      <div>
-        <img src="/images/Carousel3.jpg" alt="Imagen 3" />
-        <p className="legend">Texto 3</p>
-      </div>
+    <Carousel showArrows={true} showThumbs={false} infiniteLoop={true} autoPlay={true}>
+      {carouselImages.map(image => (
+        <div key={image.id}>
+          <img src={image.imageUrl} alt={`Imagen ${image.id}`} />
+          <p className="legend">{image.legend}</p>
+        </div>
+      ))}
     </Carousel>
   );
-}
+};
 
-export default App;
+export default CarouselComponent;

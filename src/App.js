@@ -4,8 +4,7 @@ import HomePage from './pages/HomePage';
 import AdminPage from './pages/AdminPage';
 import Footer from './components/Footer';
 import LoginModal from './components/LoginModal';
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import CarouselComponent from './components/Carousel'; // Importamos desde la ruta correcta
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,7 +16,12 @@ const App = () => {
   ]);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  // Define a list of mangas
+  const carouselImages = [
+    { id: 1, imageUrl: `${process.env.PUBLIC_URL}/images/Carousel1.png`, legend: 'Texto 1' },
+    { id: 2, imageUrl: `${process.env.PUBLIC_URL}/images/Carousel2.png`, legend: 'Texto 2' },
+    { id: 3, imageUrl: `${process.env.PUBLIC_URL}/images/Carousel3.png`, legend: 'Texto 3' },
+  ];
+
   const mangas = [
     { id: 1, title: 'DOROHEDORO 07', releaseDate: '2024-07-01', imageUrl: '/images/Manga01.png'},
     { id: 2, title: 'ONE PIECE 63', releaseDate: '2024-08-01', imageUrl: '/images/Manga02.png' },
@@ -53,17 +57,10 @@ const App = () => {
     <div>
       <CustomNavbar isAdmin={isAdmin} onLogin={() => setShowLoginModal(true)} onLogout={handleLogout} isLoggedIn={isLoggedIn} />
       
-      {/* Carousel section */}
-      <Carousel showArrows={true} showThumbs={false} infiniteLoop={true} autoPlay={true}>
-        {mangas.map(manga => (
-          <div key={manga.id}>
-            <img src={manga.imageUrl} alt={manga.title} />
-            <p className="legend">{manga.title}</p>
-          </div>
-        ))}
-      </Carousel>
+      {/* Renderizar el carousel desde Carousel.js */}
+      <CarouselComponent carouselImages={carouselImages} />
       
-      {/* Renderiza la página de inicio o la página de administrador */}
+      {/* Renderizar la página de inicio o la página de administrador */}
       {isAdmin ? (
         <AdminPage users={users} onDeleteUser={handleDeleteUser} />
       ) : (
