@@ -4,7 +4,7 @@ import { Navbar as BootstrapNavbar, Nav } from 'react-bootstrap';
 const CustomNavbar = ({ isAdmin, onLogin, onLogout, isLoggedIn }) => {
 
   return (
-    <BootstrapNavbar bg="none" variant="dark" expand="lg">
+    <BootstrapNavbar bg="dark" variant="dark" expand="lg" className="fixed-top custom-navbar">
       {/* Logo a la izquierda */}
       <BootstrapNavbar.Brand href="#home" style={{ paddingLeft: '20px' }}>
         <img
