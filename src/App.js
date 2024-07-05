@@ -54,7 +54,6 @@ const App = () => {
   };
 
   const handleEditUserRole = (username, newRole) => {
-   
     const updatedUsers = users.map(user =>
       user.username === username ? { ...user, role: newRole } : user
     );
@@ -67,10 +66,14 @@ const App = () => {
       
       {!isAdmin && <CarouselComponent carouselImages={carouselImages} />}
       
-      {isAdmin ? (
-        <AdminPage users={users} onDeleteUser={handleDeleteUser} onEditUserRole={handleEditUserRole} />
-      ) : (
+      {isLoggedIn ? (
         <HomePage isAdmin={isAdmin} mangas={mangas} favorites={favorites} onFavorite={handleFavorite} />
+      ) : (
+        <p>Debes iniciar sesión para ver los mangas.</p>
+      )}
+      
+      {isAdmin && (
+        <AdminPage users={users} onDeleteUser={handleDeleteUser} onEditUserRole={handleEditUserRole} />
       )}
       
       <Footer />
