@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage';
 import AdminPage from './pages/AdminPage';
 import Footer from './components/Footer';
 import LoginModal from './components/LoginModal';
-import CarouselComponent from './components/Carousel'; // Importamos desde la ruta correcta
+import CarouselComponent from './components/Carousel';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -53,16 +53,22 @@ const App = () => {
     setUsers(users.filter(user => user.username !== username));
   };
 
+  const handleEditUserRole = (username, newRole) => {
+   
+    const updatedUsers = users.map(user =>
+      user.username === username ? { ...user, role: newRole } : user
+    );
+    setUsers(updatedUsers);
+  };
+
   return (
     <div>
       <CustomNavbar isAdmin={isAdmin} onLogin={() => setShowLoginModal(true)} onLogout={handleLogout} isLoggedIn={isLoggedIn} />
       
-      {/* Renderizar el carousel desde Carousel.js */}
-      <CarouselComponent carouselImages={carouselImages} />
+      {!isAdmin && <CarouselComponent carouselImages={carouselImages} />}
       
-      {/* Renderizar la página de inicio o la página de administrador */}
       {isAdmin ? (
-        <AdminPage users={users} onDeleteUser={handleDeleteUser} />
+        <AdminPage users={users} onDeleteUser={handleDeleteUser} onEditUserRole={handleEditUserRole} />
       ) : (
         <HomePage isAdmin={isAdmin} mangas={mangas} favorites={favorites} onFavorite={handleFavorite} />
       )}
